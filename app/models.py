@@ -6,11 +6,8 @@ from flask_migrate import Migrate
 from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime, TIMESTAMP, ForeignKey
 from sqlalchemy.orm import relationship
 
-db = SQLAlchemy(flask_app, session_options={
-    'autocommit': True,
-    'autoflush': False,
-    'expire_on_commit': False
-})
+
+db = SQLAlchemy(flask_app)
 
 migrate = Migrate(flask_app, db)
 
