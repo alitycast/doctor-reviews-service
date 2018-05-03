@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from sqlalchemy import Column, Integer, String, DateTime, JSON, DECIMAL, TIMESTAMP, Text
+from sqlalchemy import Boolean, Column, Integer, String, DateTime, JSON, DECIMAL, TIMESTAMP, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import database_exists, create_database
 
@@ -45,6 +45,7 @@ class Comment(db.Model):
     comment_body = Column(Text)
     rating = Column(Integer)
     author_id = Column(Integer)
+    archive = Column(Boolean)
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
