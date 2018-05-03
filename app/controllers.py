@@ -27,7 +27,7 @@ def create_comment():
             comment_body=request.json.get("comment_body"),
             rating=request.json.get("rating"),
             author_id=request.json.get("author_id"),
-            archive=request.json.get("archive")
+            active=request.json.get("active")
         )
         db.session.add(comment)
     db.session.commit() 
@@ -47,7 +47,7 @@ def update_comment(comment_id):
 
     rating = request.json.get("rating")
     comment_body = request.json.get("comment_body")
-    archive = request.json.get("archive")
+    active = request.json.get("active")
 
     comment = Comment.query.get(comment_id)
     
@@ -55,8 +55,8 @@ def update_comment(comment_id):
         comment.rating = rating
     if comment_body:
         comment.comment_body = comment_body
-    if archive:
-        comment.archive = archive
+    if active:
+        comment.active = active
 
     db.session.commit()
     
@@ -75,7 +75,7 @@ def format_comment(comment):
         "comment_body": comment.comment_body,
         "rating": comment.rating,
         "author_id": comment.author_id,
-        "archive": comment.archive,
+        "active": comment.active,
         "created_at": comment.created_at,
         "updated_at": comment.updated_at
     }

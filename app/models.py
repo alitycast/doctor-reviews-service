@@ -56,6 +56,6 @@ class Comment(db.Model):
     comment_body = Column(Text)
     rating = Column(Integer)
     author_id = Column(Integer)
-    archive = Column(Boolean)
+    active = Column(Boolean)
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
