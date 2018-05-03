@@ -1,11 +1,22 @@
-from app import flask_app
 from datetime import datetime
 
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from sqlalchemy import Boolean, Column, Integer, String, DateTime, JSON, DECIMAL, TIMESTAMP, Text
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import (
+    Boolean, 
+    Column, 
+    DateTime, 
+    DECIMAL, 
+    Integer, 
+    JSON, 
+    String, 
+    Text,
+    TIMESTAMP,
+)
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import database_exists, create_database
+
+from app import flask_app
 
 if not database_exists(flask_app.config['SQLALCHEMY_DATABASE_URI']):
     create_database(flask_app.config['SQLALCHEMY_DATABASE_URI'])
@@ -48,6 +59,3 @@ class Comment(db.Model):
     archive = Column(Boolean)
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-
-
-# ArgumentError: Error creating backref 'doctors' on relationship 'Doctor.specialties': property of that name exists on mapper 'Mapper|Specialty|specialty'
