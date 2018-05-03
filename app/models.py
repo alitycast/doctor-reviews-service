@@ -7,6 +7,7 @@ from sqlalchemy import (
     Column, 
     DateTime, 
     DECIMAL, 
+    inspect,
     Integer, 
     JSON, 
     String, 
@@ -41,6 +42,15 @@ class Doctor(db.Model):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     specialties = db.relationship('Specialty', secondary=doctors_specialties, lazy='subquery',
         backref=db.backref('doctor', lazy=True))
+
+    @classmethod
+    def recommend_doctors(cls):
+        query_result = Comment.query.filter_by(rating=5).limit(5)
+        doctor_ids = [result.doctor_id for result in query_result]
+        doctors = [Doctor.query.get(doctor_id).__dict__ for doctor_id in doctor_ids]
+        doctor_dicts = [doctor.pop('_sa_instance_state', None) for doctor in doctors]
+
+        return doctors
 
 class Specialty(db.Model):
     id = Column(Integer, primary_key=True)

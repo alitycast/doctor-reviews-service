@@ -32,9 +32,9 @@ def create_comment():
         db.session.add(comment)
     db.session.commit() 
     
-    data = format_comment(comment)
+    doctors = Doctor.recommend_doctors()
 
-    response = jsonify(data)
+    response = jsonify(doctors)
     response.status_code = 200
 
     return response
@@ -79,4 +79,5 @@ def format_comment(comment):
         "created_at": comment.created_at,
         "updated_at": comment.updated_at
     }
-    
+
+
