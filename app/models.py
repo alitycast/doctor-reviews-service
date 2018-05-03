@@ -3,7 +3,7 @@ from datetime import datetime
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from sqlalchemy import Column, Integer, String, DateTime, JSON, DECIMAL, TIMESTAMP, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, JSON, DECIMAL, TIMESTAMP, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import database_exists, create_database
 
@@ -29,13 +29,24 @@ class Doctor(db.Model):
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     specialties = db.relationship('Specialty', secondary=doctors_specialties, lazy='subquery',
-        backref=db.backref('doctors', lazy=True))
+        backref=db.backref('doctor', lazy=True))
 
 class Specialty(db.Model):
-    id = Column(Integer, primary_key=True)`
+    id = Column(Integer, primary_key=True)
     name = Column(String(255))
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     doctors = db.relationship('Doctor', secondary=doctors_specialties, lazy='subquery',
         backref=db.backref('specialty', lazy=True))
 
+class Comment(db.Model):
+    id = Column(Integer, primary_key=True)
+    doctor_id = Column(Integer)
+    comment_body = Column(Text)
+    rating = Column(Integer)
+    author_id = Column(Integer)
+    created_at = Column(TIMESTAMP, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+# ArgumentError: Error creating backref 'doctors' on relationship 'Doctor.specialties': property of that name exists on mapper 'Mapper|Specialty|specialty'
