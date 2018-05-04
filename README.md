@@ -6,7 +6,7 @@
 `POST /comment/`  
 Creates a comment for a doctor, returns a list of recommended doctors.  
 
-* example request body: 
+Example request body: 
 ```
 {
 	"doctor_id": 1, 
@@ -16,7 +16,8 @@ Creates a comment for a doctor, returns a list of recommended doctors.
 	"active": True
 }
 ``` 
-* example response:: 
+
+Example response:: 
 ```
 [
   {
@@ -44,10 +45,11 @@ Creates a comment for a doctor, returns a list of recommended doctors.
 ]
 ```  
 
-* `GET /comment/<int:comment_id>`
-Retrives a doctor's comment by id.
 
-* example response: 
+`GET /comment/<int:comment_id>`
+* Retrives a doctor's comment by id.
+
+Example response: 
 ```
 {
   "active": true,
@@ -61,16 +63,18 @@ Retrives a doctor's comment by id.
 }
 ``` 
 
-* `PUT /comment/<int:comment_id>`
-Updates a doctor's comment by id. 
 
-* example request body: 
+`PUT /comment/<int:comment_id>`
+* Updates a doctor's comment by id. 
+
+Example request body: 
 ```
 {
   "active": false,
 }
+```
 
- example response: 
+Example response: 
 ```
 {
   "active": false,
@@ -84,9 +88,11 @@ Updates a doctor's comment by id.
 }  
 ```
 
+
 ## Testing
 
 Run tests with `python -m pytest`
+
 
 ## Database Changes
 
@@ -101,6 +107,7 @@ Run tests with `python -m pytest`
 ### reverting a migration
 
 `FLASK_APP=app.app:flask_app python -m flask db downgrade`
+
 
 ## Manual Dev Setup
 
