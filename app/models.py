@@ -19,18 +19,20 @@ from sqlalchemy_utils import database_exists, create_database
 
 from app import flask_app
 
+# Database setup
 if not database_exists(flask_app.config['SQLALCHEMY_DATABASE_URI']):
     create_database(flask_app.config['SQLALCHEMY_DATABASE_URI'])
 
 db = SQLAlchemy(flask_app)
-
 migrate = Migrate(flask_app, db)
 
+# Tables 
 doctors_specialties = db.Table('doctors_specialties',
     db.Column('doctor_id', db.Integer, db.ForeignKey('doctor.id'), primary_key=True),
     db.Column('specialty_id', db.Integer, db.ForeignKey('specialty.id'), primary_key=True)
 )
 
+# Models 
 class Doctor(db.Model):
     id = Column(Integer, primary_key=True)
     group_id = Column(String(255), index=True)
@@ -48,6 +50,8 @@ class Doctor(db.Model):
         query_result = Comment.query.filter_by(rating=5).limit(5)
         doctor_ids = [result.doctor_id for result in query_result]
         doctors = [Doctor.query.get(doctor_id).__dict__ for doctor_id in doctor_ids]
+
+        # removes unnecessary field
         doctor_dicts = [doctor.pop('_sa_instance_state', None) for doctor in doctors]
 
         return doctors
