@@ -1,6 +1,8 @@
 # doctor-reviews-service
 * A service which creates, retrieves, and updates comments for a given doctor.  
 
+---
+
 ## Endpoints
 
 `POST /comment/`  
@@ -17,7 +19,7 @@ Example request body:
 }
 ``` 
 
-Example response:: 
+Example response (recommended doctors):  
 ```
 [
   {
@@ -88,10 +90,13 @@ Example response:
 }  
 ```
 
+---
 
 ## Testing
 
 Run tests with `pytest`
+
+---
 
 ## Database Changes
 
@@ -107,6 +112,7 @@ Run tests with `pytest`
 
 `FLASK_APP=app.app:flask_app python -m flask db downgrade`
 
+---
 
 ## Manual Dev Setup
 
@@ -123,6 +129,7 @@ Migrate the database (see above)
 ### run a local server
 * run `FLASK_APP=app.app:flask_app python -m flask run`
 
+---
 
 ## Author
 * Ali Tycast
