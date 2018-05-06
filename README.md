@@ -1,11 +1,11 @@
-# doctor-reviews-service
+# Comment on a Doctor Service
 * A service which creates, retrieves, and updates comments for a given doctor.  
 
 ---
 
 ## Endpoints
 
-`POST /comment/`  
+### POST /comment/  
 Creates a comment for a doctor, returns a list of recommended doctors.  
 
 Example request body: 
@@ -48,8 +48,8 @@ Example response (recommended doctors):
 ```  
 
 
-`GET /comment/<int:comment_id>`
-* Retrives a doctor's comment by id.
+### GET /comment/<int:comment_id>
+Retrives a doctor's comment by id.
 
 Example response: 
 ```
@@ -66,8 +66,8 @@ Example response:
 ``` 
 
 
-`PUT /comment/<int:comment_id>`
-* Updates a doctor's comment by id. 
+### PUT /comment/<int:comment_id>
+Updates a doctor's comment by id. 
 
 Example request body: 
 ```
