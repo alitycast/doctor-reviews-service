@@ -1,5 +1,5 @@
 from app.app import flask_app
-from app.models import db, Comment
+from app.models import Comment, db
 
 
 def test_created_at_gets_set_on_create():

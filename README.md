@@ -91,8 +91,7 @@ Example response:
 
 ## Testing
 
-Run tests with `python -m pytest`
-
+Run tests with `pytest`
 
 ## Database Changes
 
@@ -115,13 +114,11 @@ Run tests with `python -m pytest`
 
 `pip install -r requirements.txt`
 
-`brew install mysql` (and run the command to autorun)
+`brew install mysql`
 
 ### database
 
-Migrate the database
-
-* `FLASK_APP=app.app:flask_app python -m flask db upgrade`
+Migrate the database (see above)  
 
 ### run a local server
 * run `FLASK_APP=app.app:flask_app python -m flask run`

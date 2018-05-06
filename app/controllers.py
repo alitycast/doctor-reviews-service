@@ -2,13 +2,13 @@ from flask import abort, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 
 from app import flask_app
-from models import db, Doctor, Comment
+from models import db, Comment, Doctor
 
 @flask_app.route('/comment/<int:comment_id>')
 def get_comment(comment_id):
     comment = Comment.query.get(comment_id)
 
-    data = format_comment(comment)
+    data = comment.format()
 
     response = jsonify(data)
     response.status_code = 200
@@ -32,6 +32,7 @@ def create_comment():
         db.session.add(comment)
     db.session.commit() 
     
+    # successfully created comment, return recommended doctors
     doctors = Doctor.recommend_doctors()
 
     response = jsonify(doctors)
@@ -45,6 +46,7 @@ def update_comment(comment_id):
     if not request.json:
         abort(400)
 
+    # only update below fields
     rating = request.json.get("rating")
     comment_body = request.json.get("comment_body")
     active = request.json.get("active")
@@ -55,29 +57,16 @@ def update_comment(comment_id):
         comment.rating = rating
     if comment_body:
         comment.comment_body = comment_body
-    if active:
+    if active is not None:
         comment.active = active
 
     db.session.commit()
     
-    data = format_comment(comment)
+    data = comment.format()
 
     response = jsonify(data)
     response.status_code = 200
 
     return response  
-
-
-def format_comment(comment):
-    return {
-        "id": comment.id,
-        "doctor_id": comment.doctor_id,
-        "comment_body": comment.comment_body,
-        "rating": comment.rating,
-        "author_id": comment.author_id,
-        "active": comment.active,
-        "created_at": comment.created_at,
-        "updated_at": comment.updated_at
-    }
 
 

@@ -13,7 +13,7 @@ def test_create(client):
     )
     assert response.status_code == 200
 
-    comment = Comment.query.first()
+    comment = Comment.query.order_by(Comment.id.desc()).first()
 
     assert COMMENT_DATA == {
         "doctor_id": comment.doctor_id,
@@ -24,4 +24,5 @@ def test_create(client):
     }
 
     assert isinstance(json.loads(response.data), list)
+    assert len(json.loads(response.data)) == 5
 

@@ -1,5 +1,5 @@
 from app.app import flask_app
-from app.models import db, Comment, Doctor
+from app.models import Comment, db, Doctor
 
 
 def test_recommend_doctors():

@@ -48,11 +48,13 @@ class Doctor(db.Model):
     @classmethod
     def recommend_doctors(cls):
         query_result = Comment.query.filter_by(rating=5).limit(5)
+
         doctor_ids = [result.doctor_id for result in query_result]
+
         doctors = [Doctor.query.get(doctor_id).__dict__ for doctor_id in doctor_ids]
 
-        # removes unnecessary field
-        doctor_dicts = [doctor.pop('_sa_instance_state', None) for doctor in doctors]
+        # removes unnecessary field which isn't JSON serializable
+        [doctor.pop('_sa_instance_state', None) for doctor in doctors]
 
         return doctors
 
@@ -66,10 +68,22 @@ class Specialty(db.Model):
 
 class Comment(db.Model):
     id = Column(Integer, primary_key=True)
-    doctor_id = Column(Integer)
+    doctor_id = Column(Integer, index=True)
     comment_body = Column(Text)
     rating = Column(Integer)
-    author_id = Column(Integer)
-    active = Column(Boolean)
+    author_id = Column(Integer, index=True)
+    active = Column(Boolean, index=True)
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    def format(self):
+        return {
+            "id": self.id,
+            "doctor_id": self.doctor_id,
+            "comment_body": self.comment_body,
+            "rating": self.rating,
+            "author_id": self.author_id,
+            "active": self.active,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }

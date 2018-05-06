@@ -1,7 +1,5 @@
-import os
-
-import pytest
 from flask_migrate import upgrade, downgrade
+import pytest
 
 from app.app import flask_app
 from app.models import db

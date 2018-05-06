@@ -2,7 +2,7 @@ import json
 import pytest
 
 from app.app import flask_app
-from app.models import db, Comment
+from app.models import Comment, db
 from tests.helpers import COMMENT_DATA, HEADERS
 
 
