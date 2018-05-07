@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app import flask_app
 from models import db, Comment, Doctor
 
-@flask_app.route('/comment/<int:comment_id>')
+@flask_app.route("/comment/<int:comment_id>")
 def get_comment(comment_id):
     comment = Comment.query.get(comment_id)
 
@@ -16,7 +16,7 @@ def get_comment(comment_id):
     return response
 
 
-@flask_app.route('/comment', methods=['POST'])
+@flask_app.route("/comment", methods=["POST"])
 def create_comment():
     if not request.json:
         abort(400)
@@ -41,7 +41,7 @@ def create_comment():
     return response
 
 
-@flask_app.route('/comment/<int:comment_id>', methods=['PUT'])
+@flask_app.route("/comment/<int:comment_id>", methods=["PUT"])
 def update_comment(comment_id):
     if not request.json:
         abort(400)

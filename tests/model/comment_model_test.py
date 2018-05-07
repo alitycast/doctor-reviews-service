@@ -18,6 +18,6 @@ def test_updated_at_gets_changed_on_update():
     assert old_datetime != None
 
     with db.session.begin(subtransactions=True):
-        comment.comment_body = 'something_else'
+        comment.comment_body = "something_else"
 
     assert comment.updated_at != old_datetime

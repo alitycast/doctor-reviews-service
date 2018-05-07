@@ -19,16 +19,16 @@ from sqlalchemy_utils import database_exists, create_database
 from app import flask_app
 
 # Database setup
-if not database_exists(flask_app.config['SQLALCHEMY_DATABASE_URI']):
-    create_database(flask_app.config['SQLALCHEMY_DATABASE_URI'])
+if not database_exists(flask_app.config["SQLALCHEMY_DATABASE_URI"]):
+    create_database(flask_app.config["SQLALCHEMY_DATABASE_URI"])
 
 db = SQLAlchemy(flask_app)
 migrate = Migrate(flask_app, db)
 
 # Tables 
-doctors_specialties = db.Table('doctors_specialties',
-    db.Column('doctor_id', db.Integer, db.ForeignKey('doctor.id'), primary_key=True),
-    db.Column('specialty_id', db.Integer, db.ForeignKey('specialty.id'), primary_key=True)
+doctors_specialties = db.Table("doctors_specialties",
+    db.Column("doctor_id", db.Integer, db.ForeignKey("doctor.id"), primary_key=True),
+    db.Column("specialty_id", db.Integer, db.ForeignKey("specialty.id"), primary_key=True)
 )
 
 # Models 
@@ -41,8 +41,8 @@ class Doctor(db.Model):
     longitude = Column(DECIMAL(11, 8)) 
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    specialties = db.relationship('Specialty', secondary=doctors_specialties, lazy='subquery',
-        backref=db.backref('doctor', lazy=True))
+    specialties = db.relationship("Specialty", secondary=doctors_specialties, lazy="subquery",
+        backref=db.backref("doctor", lazy=True))
 
     @classmethod
     def recommend_doctors(cls):
@@ -52,8 +52,8 @@ class Doctor(db.Model):
 
         doctors = [Doctor.query.get(doctor_id).__dict__ for doctor_id in doctor_ids]
 
-        # removes unnecessary field which isn't JSON serializable
-        [doctor.pop('_sa_instance_state', None) for doctor in doctors]
+        # removes unnecessary field which isn"t JSON serializable
+        [doctor.pop("_sa_instance_state", None) for doctor in doctors]
 
         return doctors
 
@@ -62,8 +62,8 @@ class Specialty(db.Model):
     name = Column(String(255))
     created_at = Column(TIMESTAMP, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    doctors = db.relationship('Doctor', secondary=doctors_specialties, lazy='subquery',
-        backref=db.backref('specialty', lazy=True))
+    doctors = db.relationship("Doctor", secondary=doctors_specialties, lazy="subquery",
+        backref=db.backref("specialty", lazy=True))
 
 class Comment(db.Model):
     id = Column(Integer, primary_key=True)
