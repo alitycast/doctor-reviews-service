@@ -7,6 +7,6 @@ COMMENT_DATA = {
 }
 
 HEADERS = {
-    'content-type': 'application/json',
-    'accept': 'application/json'
+    "content-type": "application/json",
+    "accept": "application/json"
 }

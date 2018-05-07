@@ -52,7 +52,7 @@ class Doctor(db.Model):
 
         doctors = [Doctor.query.get(doctor_id).__dict__ for doctor_id in doctor_ids]
 
-        # removes unnecessary field which isn"t JSON serializable
+        # removes unnecessary field which isn't JSON serializable
         [doctor.pop("_sa_instance_state", None) for doctor in doctors]
 
         return doctors
